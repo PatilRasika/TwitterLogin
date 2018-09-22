@@ -2,11 +2,12 @@
 //  AppDelegate.swift
 //  Twitter Login
 //
-//  Created by Akshay Kadam on 17/09/18.
+//  Created by Rasika Patil
 //  Copyright © 2018 Rasika Patil. All rights reserved.
 //
 
 import UIKit
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        TWTRTwitter.sharedInstance().startWithConsumerKey("Sh4JYw4aQ773emLJTL9zlFFF2", consumerSecret: "KYZk6x2O0HO8e1ClUyqDDMjXOnYJhjwHBXrY4PJ6M7OFBxkE7z")
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let homeViewController = LoginViewController()
+        let navigationController = UINavigationController.init(rootViewController: homeViewController)
+        window!.rootViewController = navigationController
+        window!.makeKeyAndVisible()
         return true
+
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -39,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        return TWTRTwitter.sharedInstance().application(app, openURL: url, options: options)
     }
 
 
